@@ -45,15 +45,15 @@
     function sendMail($email, $resetotp){
         $mail = new PHPMailer();//true
         $mail->isSMTP();                                                    
-        $mail->Host       = 'mail.nwarz.com'; 
+        $mail->Host       = 'mail.domain.com'; 
         $mail->Port       = 465;
         $mail->SMTPDebug = 0;  
         $mail->SMTPAuth   = true;                                           
-        $mail->Username   = '_mainaccount@nwarz.com';
+        $mail->Username   = '_mainaccount@domain.com';
         $mail->Password   = '';                            //
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
      
-         $from = "_mainaccount@nwarz.com";
+         $from = "_mainaccount@domain.com";
         
         $to = $email;
          $mail->addAddress($to);
