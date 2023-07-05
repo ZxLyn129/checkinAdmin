@@ -43,36 +43,37 @@
     }
     
     function sendMail($email, $resetotp){
-       $mail = new PHPMailer(true);
-       $mail->SMTPDebug = 0;                                               //Disable verbose debug output
-       $mail->isSMTP();                                                    //Send using SMTP
-       $mail->Host       = 'smtp.gmail.com';                          //Set the SMTP server to send through
-        $mail->SMTPAuth   = true;                                           //Enable SMTP authentication
-        $mail->Username   = 'checkina2044@gmail.com';
-        $mail->Password   = 'xqijtfbhclwbkycf';                            //
-        $mail->SMTPSecure = 'ssl';
+        $mail = new PHPMailer();//true
+        $mail->isSMTP();                                                    
+        $mail->Host       = 'mail.nwarz.com'; 
         $mail->Port       = 465;
-    
-        $from = "checkina2044@gmail.com";
-       $to = $email;
-       $subject = 'Checkin Website - Reset password request';
-       $message = "<h2>You have requested to reset your password</h2> <p>Please click on the following link to reset your password and using this $resetotp to verify. If your did not request for the reset. You can ignore this email<p>
-       <p><button><a href ='http://nwarz.com/checkinAdmin/verifyotp.php?email=$email&otp=$resetotp'>Verify Here</a></button>";
-       
+        $mail->SMTPDebug = 0;  
+        $mail->SMTPAuth   = true;                                           
+        $mail->Username   = '_mainaccount@nwarz.com';
+        $mail->Password   = '';                            //
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+     
+         $from = "_mainaccount@nwarz.com";
+        
+        $to = $email;
+         $mail->addAddress($to);
+         $subject = 'Checkin Website - Reset password request';
+        $message = "<h2>You have requested to reset your password</h2> <p>Please click on the following link to reset your password and using this $resetotp to verify. If your did not request for the reset. You can ignore this email<p>
+        <p><button><a href ='http://nwarz.com/checkinAdmin/verifyotp.php?email=$email&otp=$resetotp'>Verify Here</a></button>";
+        
        $mail->setFrom($from,"Check-in");
        $mail->addAddress($to);                                             //Add a recipient
-       
+        
        //Content
        $mail->isHTML(true);                                                //Set email format to HTML
        $mail->Subject = $subject;
        $mail->Body    = $message;
        if ($mail->send()) {
-            echo '<script>alert("Email sent successfully. Check your email")</script>';
-            echo "<script> window.location.replace('http://nwarz.com/checkinAdmin/verifyotp.php?email=$email&otp=$resetotp')</script>";
+             echo '<script>alert("Email sent successfully. Check your email")</script>';
+             echo "<script> window.location.replace('http://nwarz.com/checkinAdmin/verifyotp.php?email=$email&otp=$resetotp')</script>";
        } else {
-            echo '<script>alert("Error sending email: ". $mail->ErrorInfo)</script>'  ;
-       }
-    }
+             echo '<script>alert("Error sending email: ". $mail->ErrorInfo)</script>'  ;   }
+     }
     
 ?>
 
